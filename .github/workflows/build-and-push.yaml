@@ -24,7 +24,7 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: ${{ secrets.ACR_URL }}
-          username: ${{ secrets.ACR_PUSH_USER }}n
+        username: ${{ secrets.ACR_PUSH_USER }}
           password: ${{ secrets.ACR_PUSH_TOKEN }}
 
       - name: Downcase repository
