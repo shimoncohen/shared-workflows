@@ -63,19 +63,14 @@ jobs:
         run: |
           export "VER=$(cat Chart.yaml | grep version | awk '{print $2; exit}')"
           echo "VER=$VER" >> $GITHUB_ENV
-        working-directory: ./helm
-
-      - name: Update chart's dependencies
-        run: |
-          helm dependency update
-        working-directory: ./helm        
+        working-directory: ./helm    
 
       - name: Save helm chart to local registry
         run: |
-          helm chart save . '${{ secrets.ACR_URL }}/helm/${{ env.CHART }}:${{ env.VER }}'
+          helm package . --dependency-update 
         working-directory: ./helm
-      
+
       - name: Publish chart to ACR
         run: |
-          helm chart push ${{ secrets.ACR_URL }}/helm/${{ env.CHART }}:${{ env.VER }}
+          helm push ${{ env.CHART }}-${{ env.VER }}.tgz oci://${{ secrets.ACR_URL }}/helm
         working-directory: ./helm
