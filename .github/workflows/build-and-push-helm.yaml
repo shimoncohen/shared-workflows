@@ -5,7 +5,8 @@ on:
     inputs:
       scope:
         required: true
-        type: string     
+        type: string
+        default: ''
 
 env:
   HELM_EXPERIMENTAL_OCI: 1
