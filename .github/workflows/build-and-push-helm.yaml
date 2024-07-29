@@ -61,7 +61,7 @@ jobs:
       uses: MapColonies/shared-workflows/.github/workflows/update-artifacts-file.yaml@master
       needs: build-and-push-helm
       secrets: inherit
-      if: "${{ github.event.inputs.scope != '' }}"
+      if: "${{ inputs.scope != '' }}"
       with:
         scope: ${{ inputs.scope }}
         type: helm
