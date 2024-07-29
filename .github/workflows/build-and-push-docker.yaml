@@ -54,7 +54,7 @@ jobs:
   update-docker-artifact-yaml:
       uses: MapColonies/shared-workflows/.github/workflows/update-artifacts-file.yaml@master
       secrets: inherit
-      if: "${{ inputs.scope }}" != ""
+      if: "${{ github.event.inputs.scope != '' }}"
       with:
         scope: ${{ inputs.scope }}
         artifact-name: ${{ inputs.repository || github.event.repository.name }}
