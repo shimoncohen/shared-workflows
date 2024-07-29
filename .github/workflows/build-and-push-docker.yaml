@@ -21,7 +21,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  build_and_push_docker:
+  build-and-push-docker:
     name: Build and publish docker image to registry
     runs-on: ubuntu-latest
     steps:
@@ -54,6 +54,7 @@ jobs:
   update-docker-artifact-yaml:
       uses: MapColonies/shared-workflows/.github/workflows/update-artifacts-file.yaml@master
       secrets: inherit
+      needs: build-and-push-docker
       if: "${{ github.event.inputs.scope != '' }}"
       with:
         scope: ${{ inputs.scope }}
