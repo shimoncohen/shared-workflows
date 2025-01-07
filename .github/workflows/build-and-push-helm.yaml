@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       scope:
-        required: false
+        required: true
         type: string
         default: ""
 
@@ -54,7 +54,7 @@ jobs:
 
       - name: Publish chart to ACR
         run: |
-          helm push ${{ steps.set-chart-name.outputs.chart }}-${{ steps.set-chart-version.outputs.ver }}.tgz oci://${{ secrets.ACR_URL }}/helm
+          helm push ${{ steps.set-chart-name.outputs.chart }}-${{ steps.set-chart-version.outputs.ver }}.tgz oci://${{ secrets.ACR_URL }}/helm/${{ inputs.scope }}
         working-directory: ./helm
 
   update-helm-artifact-yaml:

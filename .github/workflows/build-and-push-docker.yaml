@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       scope:
-        required: false
+        required: true
         type: string
         default: ""
       repository:
@@ -37,7 +37,7 @@ jobs:
       - name: Setup docker image name and downcase it
         run: |
           if [[ -z "${{ inputs.repository }}" ]]; then
-            export DOCKER_IMAGE_NAME="${{ secrets.ACR_URL }}/${{ github.event.repository.name }}:${{ github.ref_name }}"
+            export DOCKER_IMAGE_NAME="${{ secrets.ACR_URL }}/${{ inputs.scope }}/${{ github.event.repository.name }}:${{ github.ref_name }}"
           else
             export DOCKER_IMAGE_NAME="${{ secrets.ACR_URL }}/${{ inputs.repository }}:${{ github.ref_name }}"
           fi
