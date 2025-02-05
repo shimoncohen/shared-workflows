@@ -3,6 +3,10 @@ name: postgis-check
 on:
   workflow_call:
     inputs:
+      head-sha:
+        description: 'Reference to the commit sha to run against'
+        type: string
+        required: true
       issue-number:
         description: 'The issue-number of the slash command'
         type: string
@@ -19,6 +23,10 @@ on:
         description: 'Node.js versions to check'
         type: string
         required: false
+      db-schema:
+        description: 'Wanted schema for migrations'
+        type: string
+        required: true
 
 env:
   DB_HOST: localhost
@@ -123,6 +131,8 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.head-sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -131,6 +141,15 @@ jobs:
 
       - name: Install TS Project dependencies
         run: npm ci
+      
+      - name: Create schema
+        if: inputs.db-schema != ''
+        run: psql -h $DB_HOST -d $DB_NAME -U $DB_USERNAME -c 'CREATE SCHEMA ${{ inputs.db-schema }};'
+        env:
+          PGPASSWORD: ${{ env.DB_PASSWORD }}
+
+      - name: Run migrations
+        run: npm run migration:run
 
       - name: Run integration tests
         id: test

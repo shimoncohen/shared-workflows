@@ -2,6 +2,11 @@ name: Slash Command Dispatch
 
 on:
   workflow_call:
+    inputs:
+      head-sha:
+        description: 'Reference to the commit sha to run on'
+        required: true
+        type: string
 
 jobs:
   slashCommandDispatch:
@@ -16,6 +21,7 @@ jobs:
             postgis-check
           dispatch-type: workflow
           static-args: |
+            head-sha=${{ inputs.head-sha }}
             issue-number=${{ github.event.issue.number }}
             comment-creation-date=${{ github.event.comment.created_at }}
       - name: Edit comment with error message
