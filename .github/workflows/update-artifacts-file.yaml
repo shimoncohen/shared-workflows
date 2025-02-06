@@ -52,10 +52,11 @@ jobs:
             if (fs.existsSync(path)) {
               data = JSON.parse(fs.readFileSync(path, 'utf8'));
             }
-            // Ensure nested structure: docker -> registry -> artifact:tag
-            if (!data['${{ inputs.type }}']) data['${{ inputs.type }}'] = {};
+            // Ensure nested structure: docker -> registry -> scope -> artifact:tag
             if (!data['${{ inputs.type }}']['${{ secrets.ACR_URL }}']) data['${{ inputs.type }}']['${{ secrets.ACR_URL }}'] = {};
-            data['${{ inputs.type }}']['${{ secrets.ACR_URL }}']['${{ inputs.artifact-name }}'] = '${{ inputs.artifact-tag }}';
+            const compositeKey = '${element}/${{ inputs.artifact-name }}';
+            // Assign the artifact tag to the composite key
+            data['${{ inputs.type }}']['${{ secrets.ACR_URL }}'][compositeKey] = '${{ inputs.artifact-tag }}';
             // Writing new file contents
             fs.writeFileSync(path, JSON.stringify(data, null, 2));
             "
