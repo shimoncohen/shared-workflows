@@ -16,7 +16,7 @@ jobs:
         id: scd
         uses: peter-evans/slash-command-dispatch@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
           commands: |
             postgis-check
           dispatch-type: workflow
