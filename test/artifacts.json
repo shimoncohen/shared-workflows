@@ -1,0 +1,13 @@
+{
+  "docker": {
+    "acrarolibotnonprod.azurecr.io": {
+      "infra/sftpgo": "v2.0.2"
+    }
+  },
+  "helm": {
+    "acrarolibotnonprod.azurecr.io": {
+      "jenkins": "5.0.16"
+    }
+  },
+  "git": ["MapColonies/helm-charts"]
+}

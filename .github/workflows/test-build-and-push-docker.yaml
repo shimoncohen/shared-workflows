@@ -1,0 +1,35 @@
+name: Test Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "actions/build-docker/**"
+      - "actions/push-docker/**"
+      
+jobs:
+  test-build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Test Login to Artifactory Action
+        uses: ./actions/artifactory-login
+        with:
+          registry: ${{ secrets.ACR_URL }}
+          username: ${{ secrets.ACR_PUSH_USER }}
+          password: ${{ secrets.ACR_PUSH_TOKEN }}
+
+      - name: Test Build Docker Image
+        uses: ./actions/build-docker
+        with:
+          context: ./test
+          domain: infra
+          registry: ${{ secrets.ACR_URL }}
+      
+      - name: Test Push Docker Image
+        uses: ./actions/push-docker
+        with:
+          image_name: $DOCKER_IMAGE_NAME

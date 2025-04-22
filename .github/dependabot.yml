@@ -1,0 +1,15 @@
+version: 2
+
+permissions:
+  contents: write
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/actions"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions:
+        applies-to: "version-updates"
+        patterns:
+          - "*"

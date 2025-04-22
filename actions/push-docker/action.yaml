@@ -1,0 +1,12 @@
+name: "Push Docker Image"
+description: "Pushes a previously built Docker image."
+inputs:
+  image_name:
+    description: "Fully qualified Docker image name to push."
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Push docker image
+      run: docker push ${{ inputs.image_name }}
+      shell: bash
