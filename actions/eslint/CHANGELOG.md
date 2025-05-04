@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/MapColonies/shared-workflows/compare/eslint-v1.0.0...eslint-v1.0.1) (2025-05-04)
+
+
+### 🐛 Bug Fixes
+
+* compatibility of package.json and lock for npm ci ([#68](https://github.com/MapColonies/shared-workflows/issues/68)) ([9eee3d2](https://github.com/MapColonies/shared-workflows/commit/9eee3d24fed67883a1b7c27cfa5c73ecdb0bb646))
+
 ## 1.0.0 (2025-04-22)
 
 
