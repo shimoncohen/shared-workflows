@@ -1,4 +1,4 @@
-name: esint repository
+name: Test ESLint repository
 
 on:
   pull_request:

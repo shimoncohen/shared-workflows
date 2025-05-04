@@ -10,7 +10,9 @@
     "prelint": "npm run format",
     "lint:openapi": "redocly lint openapi3.yaml",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "build": "npm run assets:copy",
+    "assets:copy": "copyfiles -f ./openapi3.yaml ./dist/ && copyfiles ./package.json dist"
   },
   "author": "MapColonies",
   "license": "ISC",
@@ -21,6 +23,7 @@
     "@redocly/cli": "^1.34.0",
     "eslint": "^9.23.0",
     "prettier": "^3.5.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "copyfiles": "^2.4.1"
   }
 }
