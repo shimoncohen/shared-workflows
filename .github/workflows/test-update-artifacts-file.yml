@@ -17,10 +17,9 @@ jobs:
       - name: Update artifacts.json
         uses: ./actions/update-artifacts-file
         with:
-          type: "docker"
-          context: actions/update-artifacts-file
-          domain: test
-          artifact_name: "sftpgo"
-          artifact_tag: "v2.0.4"
+          type: "helm"
+          domain: infra
+          artifact_name: "jenkins"
+          artifact_tag: "5.0.17"
           registry: ${{ secrets.ACR_URL }}
           github_token: ${{ secrets.GH_PAT }}

@@ -14,15 +14,15 @@ This GitHub Action builds and publishes a Helm chart to a specified registry and
 
 ## 🛠 Inputs
 
-| Name             | Description                                                                 | Required | Default         |
-|------------------|-----------------------------------------------------------------------------|----------|-----------------|
-| `scope`          | The directory name used as a logical scope for the artifact                | ✅ Yes   |             |
-| `context`        | Path to the directory containing the Helm chart and helper scripts         | ❌ No   | `./helm`        |
-| `registry`       | Registry URL the artifact is pushed to (e.g., ACR address)                 | ✅ Yes   |                |
-| `type`           | Type of artifact (`helm`, `docker`, etc.)                                  | ✅ Yes   |  |
-| `artifact_name`  | Name of the artifact (e.g. `sftpgo`, `minio`)                              | ✅ Yes   |                |
-| `artifact_tag`   | Tag or version of the artifact (e.g. `v1.2.3`, `latest`)                   | ✅ Yes   |                |
-| `github_token`   | GitHub token with permission to commit & push changes                      | ✅ Yes   |                |
+| Name             | Description                                                                 | Required | Default                      |
+|------------------|-----------------------------------------------------------------------------|----------|------------------------------|
+| `domain`         | Logical scope or namespace for the artifact (used as subdirectory name)     | ✅ Yes   |                              |
+| `artifact_name`  | Name of the artifact (e.g. `sftpgo`, `minio`)                               | ✅ Yes   |                              |
+| `artifact_tag`   | Tag or version of the artifact (e.g. `v1.2.3`, `latest`)                    | ✅ Yes   |                              |
+| `type`           | Type of artifact (`helm`, `docker`, etc.)                                   | ✅ Yes   |                              |
+| `registry`       | Registry URL the artifact is pushed to (e.g., ACR address)                  | ✅ Yes   |                              |
+| `github_token`   | GitHub token with permission to clone, commit & push to the target repo     | ✅ Yes   |                              |
+| `target_repo`    | Target GitHub repo where `artifacts.json` should be updated (e.g. `org/repo`)| ❌ No    | `mapcolonies/helm-charts`   |
 
 ---
 
@@ -34,9 +34,10 @@ This GitHub Action builds and publishes a Helm chart to a specified registry and
 - name: Update artifacts.json
   uses: MapColonies/shared-workflows/actions/update-artifacts-file@update-artifacts-file-v1.0.0
   with:
-    scope: infra
+    domain: infra
     artifact_name: "sftpgo"
     artifact_tag: "v2.0.2"
+    type: "docker"
     registry: ${{ secrets.ACR_URL }}
     github_token: ${{ secrets.GH_PAT }}
 ```
