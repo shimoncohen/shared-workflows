@@ -13,9 +13,12 @@ inputs:
     required: true
 outputs:
   chart:
-    description: "Name of the Helm chart."
+    description: "The name of the chart."
+    value: ${{ steps.set_chart_name.outputs.chart }}
   ver:
-    description: "Version of the Helm chart."
+    description: "The version of the chart."
+    value: ${{ steps.set_chart_version.outputs.ver }}
+
 runs:
   using: "composite"
   steps:
@@ -27,7 +30,7 @@ runs:
       with:
         version: "v3.12.0"
 
-    - name: Get chart's name
+    - name: Get the chart's name
       id: set_chart_name
       run: |
         CHART=$(grep '^name:' Chart.yaml | awk '{print $2}')
@@ -35,7 +38,7 @@ runs:
       working-directory: ${{ inputs.context }}
       shell: bash
 
-    - name: Get the chart's version
+    - name: Get chart's version
       id: set_chart_version
       run: |
         VER=$(grep '^version:' Chart.yaml | awk '{print $2}')
@@ -51,7 +54,6 @@ runs:
 
     - name: Publish chart to ACR
       run: |
-        helm push ${{ steps.set-chart-name.outputs.chart }}-${{ steps.set-chart-version.outputs.ver }}.tgz \
-          oci://${{ inputs.registry }}/helm/${{ inputs.domain }}
+        helm push "${{ steps.set_chart_name.outputs.chart }}-${{ steps.set_chart_version.outputs.ver }}.tgz" oci://${{ inputs.registry }}/helm/${{ inputs.domain }}
       working-directory: ${{ inputs.context }}
       shell: bash
