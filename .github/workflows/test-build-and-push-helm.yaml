@@ -1,9 +1,7 @@
 name: Test Build and Push Helm Chart
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
     paths:
       - "actions/build-and-push-helm/**"
       

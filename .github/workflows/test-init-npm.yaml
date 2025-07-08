@@ -2,9 +2,6 @@ name: Init-npm repository
 
 on:
   pull_request:
-  push:
-    branches:
-      - master
     paths:
       - "actions/init-npm/**"
 

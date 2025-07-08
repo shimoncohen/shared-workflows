@@ -27,6 +27,10 @@ inputs:
     description: "Target GitHub repository"
     required: false
     default: "mapcolonies/helm-charts"
+  target_branch:
+    description: "Target branch in the repository to update"
+    required: false
+    default: "master"
 
 runs:
   using: "composite"
@@ -37,6 +41,7 @@ runs:
         repository: ${{ inputs.target_repo }}
         token: ${{ inputs.github_token }}
         path: $TARGET_PATH
+        ref: ${{ inputs.target_branch }}
 
     - name: Set execute permission on modify script
       run: chmod +x actions/update-artifacts-file/modify_artifacts.sh
@@ -68,6 +73,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         TARGET_REPO: ${{ inputs.target_repo }}
         TARGET_DIR: $TARGET_PATH
+        TARGET_BRANCH: ${{ inputs.target_branch }}
 
     - name: Clean up target repo folder
       run: rm -rf $TARGET_PATH

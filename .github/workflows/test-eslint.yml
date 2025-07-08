@@ -2,9 +2,6 @@ name: Test ESLint repository
 
 on:
   pull_request:
-  push:
-    branches:
-      - master
     paths:
       - "actions/eslint/**"
 

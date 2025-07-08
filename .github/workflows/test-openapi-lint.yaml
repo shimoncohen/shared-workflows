@@ -2,9 +2,6 @@ name: Test OpenApi-lint
 
 on:
   pull_request:
-  push:
-    branches:
-      - master
     paths:
       - "actions/opanapi-lint/**"
 

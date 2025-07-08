@@ -23,6 +23,7 @@ This GitHub Action builds and publishes a Helm chart to a specified registry and
 | `registry`       | Registry URL the artifact is pushed to (e.g., ACR address)                  | ✅ Yes   |                              |
 | `github_token`   | GitHub token with permission to clone, commit & push to the target repo     | ✅ Yes   |                              |
 | `target_repo`    | Target GitHub repo where `artifacts.json` should be updated (e.g. `org/repo`)| ❌ No    | `mapcolonies/helm-charts`   |
+| `target_branch`  | Target branch in the repository to update                                   | ❌ No    | `master`                     |
 
 ---
 

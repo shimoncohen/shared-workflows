@@ -1,9 +1,7 @@
 name: Test artifactory-login action
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
     paths:
       - "actions/artifactory-login/**"
 
