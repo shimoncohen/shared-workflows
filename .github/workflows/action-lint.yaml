@@ -21,7 +21,7 @@ jobs:
       - name: Run actionlint
         run: |
           find actions -type f \( -name "*.yml" -o -name "*.yaml" \) -print0 | \
-            xargs -0 actionlint -format "{{.File}}:{{.Line}}:{{.Column}}: {{.Message}}" 2>&1 | tee actionlint.log
+            xargs -0 actionlint 2>&1 | tee actionlint.log
       - name: Install reviewdog
         run: |
           curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
