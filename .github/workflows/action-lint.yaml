@@ -17,7 +17,7 @@ jobs:
         run: |
           version=$(curl -s https://api.github.com/repos/rhysd/actionlint/releases/latest | grep tag_name | cut -d '"' -f4)
           curl -sSL "https://github.com/rhysd/actionlint/releases/download/${version}/actionlint_${version#v}_linux_amd64.tar.gz" | tar xz
-          sudo mv actionlint /usr/local/bin/
+          sudo mv actionlint -format gcc /usr/local/bin/
       - name: Run actionlint
         run: |
           find actions -type f \( -name "*.yml" -o -name "*.yaml" \) -print0 | \
@@ -29,4 +29,4 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat actionlint.log | reviewdog -f=actionlint -name=actionlint -reporter=github-pr-review -fail-on-error=true
+          cat actionlint.log | reviewdog -f=gcc -name=actionlint -reporter=github-pr-review -fail-on-error=true
