@@ -24,7 +24,9 @@ jobs:
             xargs -0 actionlint -format gcc 2>&1 | tee actionlint.log
       - name: Install reviewdog
         run: |
-          curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
+          REVIEWDOG_VERSION=v0.17.3
+          curl -sSL "https://github.com/reviewdog/reviewdog/releases/download/${REVIEWDOG_VERSION}/reviewdog_${REVIEWDOG_VERSION#v}_Linux_x86_64.tar.gz" | tar xz
+          sudo mv ./reviewdog /usr/local/bin/
       - name: Report with reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
