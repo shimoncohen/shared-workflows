@@ -17,11 +17,11 @@ jobs:
         run: |
           version=$(curl -s https://api.github.com/repos/rhysd/actionlint/releases/latest | grep tag_name | cut -d '"' -f4)
           curl -sSL "https://github.com/rhysd/actionlint/releases/download/${version}/actionlint_${version#v}_linux_amd64.tar.gz" | tar xz
-          sudo mv actionlint -format gcc /usr/local/bin/
+          sudo mv actionlint /usr/local/bin/
       - name: Run actionlint
         run: |
           find actions -type f \( -name "*.yml" -o -name "*.yaml" \) -print0 | \
-            xargs -0 actionlint 2>&1 | tee actionlint.log
+            xargs -0 actionlint -format gcc 2>&1 | tee actionlint.log
       - name: Install reviewdog
         run: |
           curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
