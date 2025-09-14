@@ -24,14 +24,14 @@ This GitHub Action packages a Helm chart and pushes it to a Azure Container Regi
 
 ```yaml
 - name: Artifactory Login
-  uses: MapColonies/shared-workflows/actions/artifactory-login@9a05fd7a01e18746d69cc210b7e6defbd1cc79fc # v1.0.1
+  uses: MapColonies/shared-workflows/actions/artifactory-login@9a05fd7a01e18746d69cc210b7e6defbd1cc79fc # v2.0.0
   with:
     registry: ${{ secrets.ACR_URL }}
     username: ${{ secrets.ACR_PUSH_USER }}
     password: ${{ secrets.ACR_PUSH_TOKEN }}
 
 - name: Build and Push Helm Chart
-  uses: MapColonies/shared-workflows/actions/build-and-push-helm@build-and-push-helm-v1.0.1
+  uses: MapColonies/shared-workflows/actions/build-and-push-helm@build-and-push-helm-v2.0.0
   with:
     context: ./infra/monitoring
     domain: infra
